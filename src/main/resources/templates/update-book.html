@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Book</title>
+</head>
+<body>
+<form action="#"
+      th:action="@{/update/{id}(id=${book.isbn})}"
+      th:object="${book}"
+      method="post">
+    <label for="title">Title</label>
+    <input type="text" th:field="*{title}" id="title" placeholder="Title">
+    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    <label for="isbn">ISBN</label>
+    <input type="text" th:field="*{isbn}" id="isbn" placeholder="ISBN">
+    <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span>
+    <label for="category">Category</label>
+    <input type="text" th:field="*{category}" id="category" placeholder="Category">
+    <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+    <label for="category">Author</label>
+    <input type="text" th:field="*{author}" id="author" placeholder="Author">
+    <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+    <label for="category">Edition</label>
+    <input type="text" th:field="*{edition}" id="edition" placeholder="Edition">
+    <span th:if="${#fields.hasErrors('edition')}" th:errors="*{edition}"></span>
+    <label for="category">Publisher</label>
+    <input type="text" th:field="*{publisher}" id="publisher" placeholder="Publisher">
+    <span th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}"></span>
+    <label for="category">Publication Year</label>
+    <input type="text" th:field="*{publicationYear}" id="publicationYear" placeholder="Publication Year">
+    <span th:if="${#fields.hasErrors('publicationYear')}" th:errors="*{publicationYear}"></span>
+    <label for="category">Quantity In Stock</label>
+    <input type="text" th:field="*{quantityInStock}" id="quantityInStock" placeholder="Quantity In Stock">
+    <span th:if="${#fields.hasErrors('quantityInStock')}" th:errors="*{quantityInStock}"></span>
+    <label for="category">Minimum Threshold</label>
+    <input type="text" th:field="*{minimumThreshold}" id="minimumThreshold" placeholder="Minimum Threshold">
+    <span th:if="${#fields.hasErrors('minimumThreshold')}" th:errors="*{minimumThreshold}"></span>
+    <label for="category">Buy Price</label>
+    <input type="text" th:field="*{buyPrice}" id="buyPrice" placeholder="Buy Price">
+    <span th:if="${#fields.hasErrors('buyPrice')}" th:errors="*{buyPrice}"></span>
+    <label for="category">Sell Price</label>
+    <input type="text" th:field="*{sellPrice}" id="sellPrice" placeholder="Sell Price">
+    <span th:if="${#fields.hasErrors('sellPrice')}" th:errors="*{sellPrice}"></span>
+    <input type="submit" value="Update Book">
+</form>
+
+</body>
+</html>

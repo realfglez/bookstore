@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book</title>
+</head>
+<body>
+<form action="#" th:action="@{/addpromotion}" th:object="${promotion}" method="post">
+    <label for="promoCode">Promo-Code</label>
+    <input type="text" th:field="*{promoCode}" id="promoCode" placeholder="Promo-Code">
+    <span th:if="${#fields.hasErrors('promoCode')}" th:errors="*{promoCode}"></span>
+    <label for="percentage">Percentage</label>
+    <input type="text" th:field="*{percentage}" id="percentage" placeholder="Percentage">
+    <span th:if="${#fields.hasErrors('percentage')}" th:errors="*{percentage}"></span>
+    <label for="startDate">Start Date</label>
+    <input type="text" th:field="*{startDate}" id="startDate" placeholder="Start Date">
+    <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></span>
+    <label for="endDate">End Date</label>
+    <input type="text" th:field="*{endDate}" id="endDate" placeholder="End Date">
+    <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></span>
+    <input type="submit" value="Add Promotion">
+</form>
+</body>
+</html>
