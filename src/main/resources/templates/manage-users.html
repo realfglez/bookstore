@@ -1,45 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Users</title>
+    <title>Manage Books</title>
 </head>
 <body>
+<!-- create navbar for admin -->
 <h2>Users</h2>
 <table>
     <thead>
     <tr>
+        <th>ID</th>
         <th>Username</th>
-        <th>First Name</th>
-        <th>Last Name</th>
         <th>Email</th>
-        <th>Status</th>
-        <th>Employee</th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th>Phone number</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Role</th>
+        <th>Active</th>
+        <th>Subscribed Year</th>
+        <th>Suspended</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.userName}"></td>
+    <tr th:each="book : ${user}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.phoneNumber}"></td>
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.status}"></td>
-        <td th:text="${book.isEmployee}"></td>
-        <td><a th:href="@{/suspend/{id}(id=${user.userName})}">Suspend</a></td>
-        <td><a th:href="@{/activate/{id}(id=${user.userName)}">Activate</a></td>
-        <td><a th:href="@{/promote/{id}(id=${user.userName})}">Promote</a></td>
-        <td><a th:href="@{/demote/{id}(id=${user.userName)}">Demote</a></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.active}"></td>
+        <td th:text="${user.subscribed}"></td>
+        <td th:text="${user.suspended}"></td>
+        <td><a th:href="@{/suspend/{username}(username=${user.username})}">Suspend User</a></td>
+        <td><a th:href="@{/unsuspend/{username}(username=${user.username})}">Unsuspend User</a></td>
+        <td><a th:href="@{/promote/{username}(username=${user.username})}">Promote Employee</a></td>
+        <td><a th:href="@{/demote/{username}(username=${user.username})}">Demote User</a></td>
     </tr>
     </tbody>
 </table>
-</div>
-</form>
 
-</body>
-</html>
+<div>
+    <a th:href="@{/adminShowAddBookForm}">Add a new book</a>
+</div>
+
 </body>
 </html>

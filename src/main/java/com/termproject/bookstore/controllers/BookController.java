@@ -1,7 +1,8 @@
 package com.termproject.bookstore.controllers;
 
 import com.termproject.bookstore.models.Book;
-import com.termproject.bookstore.repositories.BookRepository;
+import com.termproject.bookstore.service.BookService;
+import com.termproject.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,56 +13,48 @@ import org.springframework.web.bind.annotation.*;
 public class BookController {
 
     @Autowired
-    BookRepository bookRepository;
+    BookService bookService;
+    UserService userService;
 
     @RequestMapping(value = "/manage-books", method = RequestMethod.GET)
     public String listBooks(Model model) {
 
-        model.addAttribute("books", bookRepository.findAll());
+        model.addAttribute("books", bookService.getBooks());
         return "manage-books";
     }
 
-    @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") Long isbn, Model model) {
-        Book book = bookRepository.findByIsbn(isbn);
+    @RequestMapping(value = "archive/{isbn}", method = RequestMethod.GET)
+    public String archiveBook(@PathVariable("isbn") String isbn, Model model) {
 
+        Book book = bookService.getBookByIsbn(isbn);
+        bookService.archiveBook(book);
+        model.addAttribute("books", bookService.getBooks());
+        return "manage-books";
+    }
+
+    @RequestMapping(value = "unarchive/{isbn}", method = RequestMethod.GET)
+    public String unArchiveBook(@PathVariable("isbn") String isbn, Model model) {
+
+        Book book = bookService.getBookByIsbn(isbn);
+        bookService.unArchiveBook(book);
+        model.addAttribute("books", bookService.getBooks());
+        return "manage-books";
+    }
+
+    @RequestMapping(value = "/showAddBookForm", method = RequestMethod.GET)
+    public String showAddBookForm(Model model){
+        Book book = new Book();
         model.addAttribute("book", book);
-        return "update-book";
+        return "add-book";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateBook(@PathVariable("id") String isbn, Book book,
-                             BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            book.setIsbn(isbn);
-            return "update-book";
-        }
-
-        bookRepository.save(book);
-        model.addAttribute("books", bookRepository.findAll());
-        return "redirect:/manage-books";
-    }
-
-    @GetMapping("/archive/{id}")
-    public String archiveBook(@PathVariable("id") String isbn, Model model) {
-
-        Book book = bookRepository.findByIsbn(isbn);
-
-        book.setIsArchived(true);
-        bookRepository.save(book);
-
-        model.addAttribute("books", bookRepository.findAll());
-        return "manage-books";
-    }
-
-    @PostMapping("/addbook")
-    public String addBook(Book book, BindingResult result, Model model) {
-        if (result.hasErrors()) {
+    @RequestMapping(value = "/addBook", method = RequestMethod.POST)
+    public String addBook(@ModelAttribute("book") Book book, BindingResult result) {
+        if(result.hasErrors()) {
             return "add-book";
         }
 
-        bookRepository.save(book);
-        model.addAttribute("books", bookRepository.findAll());
+        bookService.addBook(book);
         return "redirect:/manage-books";
     }
 

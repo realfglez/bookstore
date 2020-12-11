@@ -2,9 +2,9 @@ package com.termproject.bookstore.repositories;
 
 import com.termproject.bookstore.models.Book;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BookRepository extends CrudRepository<Book, String> {
+public interface BookRepository extends JpaRepository<Book, Integer> {
 
-    Book findByIsbn(Long isbn) throws IllegalArgumentException;
+    Book findByIsbn(String isbn);
 }

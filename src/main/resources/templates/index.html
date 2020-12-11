@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -10,6 +10,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+<!-- update navbar -->
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -26,15 +29,18 @@
             </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/user-admin"><span class="glyphicon glyphicon-user"></span>  Login</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-briefcase"></span>  Cart</a></li>
+            <li><a th:href="@{/registration}"><span class="glyphicon glyphicon-user"></span>Register</a></li>
+            <li><a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span>Login</a></li>
+            <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
+            <li><a th:href="@{/cart}"><span class="glyphicon glyphicon-briefcase"></span>  Cart</a></li>
         </ul>
     </div>
 </nav>
 
+
 <div class="container" style="margin-top:75px">
     <div class="btn-group btn-group-justified">
-        <a href="#" class="btn btn-danger">BROWSE</a>
+        <a th:href="@{browseBooks}" class="btn btn-danger">BROWSE</a>
         <a href="#" class="btn btn-danger">CATEGORIES</a>
         <a href="#" class="btn btn-danger">SALE</a>
     </div>

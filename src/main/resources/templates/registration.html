@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+
+<!-- create navbar (minimal functionality) -->
+
+
+<!-- format registration form -->
+<form th:action="@{/registerNewUser}" method="post" th:object="${userForm}">
+    <div>
+        <label>First name</label>:
+        <input type="text" th:field="*{firstName}" required placeholder="e.g. Frank"/>
+    </div>
+
+    <div>
+        <label>Last name</label>:
+        <input type="text" th:field="*{lastName}" required placeholder="e.g. Ocean"/>
+    </div>
+
+    <div>
+        <label>Email address</label>:
+        <input type="email" th:field="*{username}" required placeholder="e.g. frankocean@gmail.com"/>
+    </div>
+
+    <div>
+        <label>Password</label>:
+        <input type="password" th:field="*{password}" required placeholder="e.g. Bdh91jd2e#d2$"/>
+        </span>
+    </div>
+    <div>
+        <label>Subscribe to get promotional offers</label>
+        <input type="checkbox" th:field="*{subscribed}"/>
+    </div>
+
+    <div>
+        <button type="submit">Register</button>
+    </div>
+
+    <div>
+        <span>
+            Already have an account? <a th:href="@{/login}">Login</a>
+        </span>
+    </div>
+
+</form>
+
+</body>
+</html>

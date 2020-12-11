@@ -5,7 +5,14 @@
     <title>Add Book</title>
 </head>
 <body>
-<form action="#" th:action="@{/addbook}" th:object="${book}" method="post">
+
+<!-- create navbar header -->
+
+<!-- formatting for form -->
+<form action="#" th:action="@{/addBook}" th:object="${book}" method="post">
+    <label for="coverPicUrl">Cover Pic URL</label>
+    <input type="text" th:field="*{coverPicUrl}" id="coverPicUrl" placeholder="Title">
+    <span th:if="${#fields.hasErrors('coverPicUrl')}" th:errors="*{coverPicUrl}"></span>
     <label for="title">Title</label>
     <input type="text" th:field="*{title}" id="title" placeholder="Title">
     <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
@@ -27,7 +34,7 @@
     <label for="publicationYear">Publication Year</label>
     <input type="text" th:field="*{publicationYear}" id="publicationYear" placeholder="Publication Year">
     <span th:if="${#fields.hasErrors('publicationYear')}" th:errors="*{publicationYear}"></span>
-    <label for="quantityInStock">Quantity In Stock</label>
+    <label for="quantityInStock">Quantity</label>
     <input type="text" th:field="*{quantityInStock}" id="quantityInStock" placeholder="Quantity In Stock">
     <span th:if="${#fields.hasErrors('quantityInStock')}" th:errors="*{quantityInStock}"></span>
     <label for="minimumThreshold">Minimum Threshold</label>
@@ -39,7 +46,7 @@
     <label for="sellPrice">Sell Price</label>
     <input type="text" th:field="*{sellPrice}" id="sellPrice" placeholder="Sell Price">
     <span th:if="${#fields.hasErrors('sellPrice')}" th:errors="*{sellPrice}"></span>
-    <input type="submit" value="Add Book">
+    <button type="submit">Add Book</button>
 </form>
 </body>
 </html>
