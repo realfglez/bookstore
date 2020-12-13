@@ -13,14 +13,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "book", uniqueConstraints = @UniqueConstraint(columnNames = "isbn"))
 public class Book{
 
     /**
      * Columns for Book table
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(unique = true)

@@ -2,7 +2,11 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -23,14 +27,33 @@
 
     <div>
         <label>Email address</label>:
-        <input type="email" th:field="*{username}" required placeholder="e.g. frankocean@gmail.com"/>
+        <input type="email" th:field="*{email}" required placeholder="e.g. frankocean@gmail.com"/>
+        <p th:text = "${emailExists}"></p>
+    </div>
+
+    <div>
+        <label>Username</label>:
+        <input type="text" th:field="*{username}" required placeholder="e.g. frankocean@gmail.com"/>
+        <p th:text = "${emailExists}"></p>
+    </div>
+
+    <div>
+        <label>Phone number</label>:
+        <input type="text" th:field="*{phoneNumber}" required placeholder="e.g. 7706868920"/>
+        <p th:text = "${phoneExists}"></p>
     </div>
 
     <div>
         <label>Password</label>:
         <input type="password" th:field="*{password}" required placeholder="e.g. Bdh91jd2e#d2$"/>
-        </span>
     </div>
+
+    <div>
+        <label>Confirm password</label>:
+        <input type="password" th:field="*{confirmPassword}" required/>
+        <p th:text = "${passwordMismatch}"></p>
+    </div>
+
     <div>
         <label>Subscribe to get promotional offers</label>
         <input type="checkbox" th:field="*{subscribed}"/>
@@ -47,6 +70,14 @@
     </div>
 
 </form>
-
+<div class="container">
+    <div class="well well-danger">
+        <p>About</p>
+        <p>Contact Support</p>
+        <p>Help</p>
+        <p>Terms and Conditions</p>
+        <p>Privacy Policy</p>
+    </div>
+</div>
 </body>
 </html>

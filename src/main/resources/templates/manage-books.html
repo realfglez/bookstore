@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Books</title>
+    <title>Books</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <!-- create navbar for admin -->
@@ -46,10 +49,17 @@
     </tr>
     </tbody>
 </table>
-
 <div>
     <a th:href="@{/showAddBookForm}">Add a new book</a>
 </div>
-
+<div class="container">
+    <div class="well well-danger">
+        <p>About</p>
+        <p>Contact Support</p>
+        <p>Help</p>
+        <p>Terms and Conditions</p>
+        <p>Privacy Policy</p>
+    </div>
+</div>
 </body>
 </html>

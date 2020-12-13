@@ -3,6 +3,7 @@ package com.termproject.bookstore.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * User table
@@ -11,34 +12,31 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String email;
 
     private String phoneNumber;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String username;
 
-    @Column(nullable = false)
     private String password;
 
     @Transient
     private String confirmPassword;
 
-    private String role;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
     private boolean active;
 
@@ -46,7 +44,7 @@ public class User {
 
     private boolean suspended;
 
-    private String confirmationCode;
+    private String verificationCode;
 
     private String resetPasswordCode;
 
@@ -56,4 +54,9 @@ public class User {
     @Embedded
     private Card card;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cart cart;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Order> order;
 }
