@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Controller
 public class PromotionController {
@@ -64,10 +65,11 @@ public class PromotionController {
             model.addAttribute("promotionError", "That promotion already exists");
         }
 
+
         Promotion promotion = new Promotion();
         promotion.setPromoCode(promoCode);
-        promotion.setPercentage(Stringupercentage);
-        promotion
+        promotion.setPercentage(Integer.parseInt(percentage));
+        promotion.setStartDate(LocalDate.now()));
         promotion.setExpirationDate(Date.valueOf(expirationDate));
         promotionService.add(promotion);
         sendPromotion(promotion);
