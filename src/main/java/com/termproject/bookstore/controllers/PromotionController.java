@@ -65,12 +65,11 @@ public class PromotionController {
             model.addAttribute("promotionError", "That promotion already exists");
         }
 
-
         Promotion promotion = new Promotion();
         promotion.setPromoCode(promoCode);
         promotion.setPercentage(Integer.parseInt(percentage));
-        promotion.setStartDate(LocalDate.now()));
-        promotion.setExpirationDate(Date.valueOf(expirationDate));
+        promotion.setStartDate(LocalDate.now());
+        promotion.setExpirationDate(LocalDate.parse(expirationDate));
         promotionService.add(promotion);
         sendPromotion(promotion);
         return view;

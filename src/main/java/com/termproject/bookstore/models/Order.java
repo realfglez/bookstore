@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
@@ -20,7 +22,7 @@ public class Order {
     private int id;
 
     @Basic
-    private Timestamp dateTime;
+    private LocalDateTime dateTime;
 
     private boolean completed;
 
