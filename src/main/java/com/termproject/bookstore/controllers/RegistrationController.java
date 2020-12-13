@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Random;
+
 @Controller
 public class RegistrationController {
 
@@ -73,13 +75,14 @@ public class RegistrationController {
      */
     private void sendVerification(User userForm) {
 
-        String newVerificationCode = RandomStringUtils.random(20);
-        userForm.setVerificationCode(newVerificationCode);
+        Random random = new Random();
+        int randomCode = random.nextInt(9999) + random.nextInt(9999);
+        userForm.setVerificationCode(Integer.toString(randomCode));
         userService.save(userForm);
         SimpleMailMessage message = new SimpleMailMessage();
 
         String text = "Hello " + userForm.getFirstName() + "!\n\n" +
-                "Please use the following code to verify your account: " + newVerificationCode;
+                "Please use the following code to verify your account: " + userForm.getVerificationCode();
 
         message.setFrom("bigbrainbookstore.com");
         message.setTo(userForm.getEmail());

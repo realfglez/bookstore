@@ -3,7 +3,7 @@
 <head>
     <head>
         <meta charset="UTF-8">
-        <title>Verify</title>
+        <title>Access Denied</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -11,19 +11,11 @@
     </head>
 </head>
 <body>
-<!-- create navbar -->
 
-<!-- format form -->
-<form th:action = "@{/verifyUser}" method="post">
-    <div>
-        <label>Enter Verification Code</label>:
-        <input type="text" name="verificationCode" required>
-        <span th:text = "${verifyError}"></span>
-    </div>
-    <div>
-        <button type="submit">Submit</button>
-    </div>
-</form>
+<div>
+    <h2>Sorry, you don't have permission to view this page.</h2>
+    <h4><a th:href="@{/}">Click here to return home</a></h4>
+</div>
 <div class="container">
     <div class="well well-danger">
         <p>About</p>

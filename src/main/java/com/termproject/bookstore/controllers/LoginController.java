@@ -40,7 +40,7 @@ public class LoginController {
     @RequestMapping(value = "/loginForm", method = RequestMethod.POST)
     public String loginUser(@RequestParam("id") String id,
                             @RequestParam("password") String password,
-                            final HttpServletRequest httpServletRequest,
+                            HttpServletRequest httpServletRequest,
                             Model model) {
         httpServletRequest.getSession().invalidate();
         User user;
@@ -52,7 +52,7 @@ public class LoginController {
             if (hasher().passwordMatches(password, user.getPassword())) {
                 HttpSession session = httpServletRequest.getSession(true);
                 session.setAttribute("loggedInUser", user);
-                view = "redirect:/index";
+                view = "redirect:/";
             }
             model.addAttribute("loginError", loginError);
         } else if (userService.getUserByEmail(id) != null) {
@@ -60,7 +60,7 @@ public class LoginController {
             if (hasher().passwordMatches(password, user.getPassword())) {
                 HttpSession session = httpServletRequest.getSession(true);
                 session.setAttribute("loggedInUser", user);
-                view = "redirect:/index";
+                view = "redirect:/";
             }
             model.addAttribute("loginError", loginError);
         } else {

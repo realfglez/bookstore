@@ -118,4 +118,13 @@ public class UserService {
         }
         userRepository.save(updatedUser);
     }
+
+    public boolean checkAdmin(User user) {
+        boolean isAdmin = false;
+
+        if (user.getRole().name().equals("ADMIN")){
+            isAdmin = true;
+        }
+        return isAdmin;
+    }
 }

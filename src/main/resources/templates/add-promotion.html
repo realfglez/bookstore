@@ -2,34 +2,34 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Promotions</title>
+    <title>Add Promotion</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<!-- create navbar for admin -->
-<h2>Promotions</h2>
-<table>
-    <thead>
-    <tr>
-        <th>Promo-code</th>
-        <th>Percentage</th>
-        <th>Expiration date</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="promotion: ${promotions}">
-        <td th:text="${promotion.promoCode}"></td>
-        <td th:text="${promotion.percentage}"></td>
-        <td th:text="${promotion.expirationDate}"></td>
-    </tr>
-    </tbody>
-</table>
-<div>
-    <a th:href="@{/showAddPromotionForm}">Add a new promotion</a>
-</div>
+
+<!-- create navbar header -->
+
+<!-- formatting for form -->
+<form th:action="@{/addPromotion}" method="post">
+    <div>
+        <label>Promo-code</label>:
+        <input type="text" name="promoCode" required placeholder="e.g. SAVE10">
+    </div>
+    <div>
+        <label>Percentage</label>:
+        <input type="text"  name="percentage" required>
+    </div>
+    <div>
+        <label>End date</label>:
+        <input type="text"  name="expirationDate" required placeholder="YYYY-MM-DD">
+    </div>
+    <div>
+        <button type="submit">Add Promotion</button>
+    </div>
+</form>
 <div class="container">
     <div class="well well-danger">
         <p>About</p>
