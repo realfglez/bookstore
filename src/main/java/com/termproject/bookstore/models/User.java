@@ -49,6 +49,8 @@ public class User implements Serializable {
 
     private String resetPasswordCode;
 
+    private String sessionCode;
+
     @Embedded
     private Address address;
 

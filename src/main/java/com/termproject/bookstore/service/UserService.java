@@ -6,6 +6,7 @@ import com.termproject.bookstore.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -126,5 +127,15 @@ public class UserService {
             isAdmin = true;
         }
         return isAdmin;
+    }
+
+    public boolean loggedIn(User user, HttpSession session) {
+        boolean loggedIn = false;
+
+        if (user.getSessionCode().equals(session.getId())){
+            loggedIn = true;
+        }
+
+        return loggedIn;
     }
 }

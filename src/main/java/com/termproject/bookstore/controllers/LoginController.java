@@ -52,6 +52,7 @@ public class LoginController {
             if (hasher().passwordMatches(password, user.getPassword())) {
                 HttpSession session = httpServletRequest.getSession(true);
                 session.setAttribute("loggedInUser", user);
+                user.setSessionCode(session.getId());
                 view = "redirect:/";
             }
             model.addAttribute("loginError", loginError);
@@ -60,6 +61,7 @@ public class LoginController {
             if (hasher().passwordMatches(password, user.getPassword())) {
                 HttpSession session = httpServletRequest.getSession(true);
                 session.setAttribute("loggedInUser", user);
+                user.setSessionCode(session.getId());
                 view = "redirect:/";
             }
             model.addAttribute("loginError", loginError);

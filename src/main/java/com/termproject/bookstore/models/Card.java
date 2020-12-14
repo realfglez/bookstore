@@ -1,16 +1,20 @@
 package com.termproject.bookstore.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Embeddable;
-import java.sql.Date;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.Embeddable;
+
+@NoArgsConstructor
+@Getter
+@Setter
 @Embeddable
 public class Card {
 
     private String cardNumber;
 
-    @Basic
-    private Date expDate;
+    private String expirationDate;
 
     private String securityCode;
 

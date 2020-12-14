@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title>Add Promotion</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -10,49 +10,37 @@
 </head>
 <body>
 
-<!-- create navbar (minimal functionality) -->
+<!-- create navbar header -->
 
-
-<!-- format registration form -->
-<form th:action="@{/registerNewUser}" method="post" th:object="${userForm}">
+<!-- formatting for form -->
+<form th:action="@{/editProfile}" th:object = "${useForm}" method="post">
     <div>
         <h4>Credentials</h4>
         <div>
             <label>First name</label>:
-            <input type="text" th:field="*{firstName}" required/>
+            <input type="text" th:field="*{firstName}"/>
         </div>
 
         <div>
             <label>Last name</label>:
-            <input type="text" th:field="*{lastName}" required/>
+            <input type="text" th:field="*{lastName}"/>
         </div>
 
         <div>
             <label>Email address</label>:
-            <input type="email" th:field="*{email}" required/>
+            <input type="email" th:field="*{email}"/>
             <p th:text = "${emailError}"></p>
         </div>
 
         <div>
             <label>Username</label>:
-            <input type="text" th:field="*{username}" required/>
+            <input type="text" th:field="*{username}"/>
             <p th:text = "${usernameError}"></p>
         </div>
 
         <div>
             <label>Phone number</label>:
-            <input type="text" th:field="*{phoneNumber}" required/>
-        </div>
-
-        <div>
-            <label>Password</label>:
-            <input type="password" th:field="*{password}" required/>
-        </div>
-
-        <div>
-            <label>Confirm password</label>:
-            <input type="password" th:field="*{confirmPassword}" required/>
-            <p th:text = "${passwordMismatch}"></p>
+            <input type="text" th:field="*{phoneNumber}"/>
         </div>
     </div>
 
@@ -98,20 +86,14 @@
     </div>
 
     <div>
-        <label>Subscribe to get promotional offers</label>
-        <input type="checkbox" th:field="*{subscribed}"/>
-    </div>
-
-    <div>
-        <button type="submit">Register</button>
-    </div>
-
-    <div>
-        <span>
-            Already have an account? <a th:href="@{/login}">Login</a>
-        </span>
+        <label>Subscribe</label>
+        <select class="form-control" th:field="*{subscribed}">
+            <option th:value="1" >yes</option>
+            <option th:value="0" >no</option>
+        </select>
     </div>
 </form>
+
 <div class="container">
     <div class="well well-danger">
         <p>About</p>

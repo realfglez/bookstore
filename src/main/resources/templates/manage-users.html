@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -38,16 +38,16 @@
         <td th:text="${user.active}"></td>
         <td th:text="${user.subscribed}"></td>
         <td th:text="${user.suspended}"></td>
-        <td><a th:href="@{/suspend/{username}(username=${user.username})}">Suspend User</a></td>
-        <td><a th:href="@{/unsuspend/{username}(username=${user.username})}">Unsuspend User</a></td>
-        <td><a th:href="@{/promote/{username}(username=${user.username})}">Promote Employee</a></td>
-        <td><a th:href="@{/demote/{username}(username=${user.username})}">Demote User</a></td>
+        <td><a th:href="@{/suspend/{username}(username=${user.username})}">Suspend</a></td>
+        <td><a th:href="@{/unsuspend/{username}(username=${user.username})}">Unsuspend</a></td>
+        <td><a th:href="@{/promote/{username}(username=${user.username})}">Promote</a></td>
+        <td><a th:href="@{/demote/{username}(username=${user.username})}">Demote</a></td>
     </tr>
     </tbody>
 </table>
 
 <div>
-    <a th:href="@{/adminShowAddBookForm}">Add a new book</a>
+    <a th:href="2@{/adminShowAddEmployeeForm}">Add a new employee</a>
 </div>
 <div class="container">
     <div class="well well-danger">

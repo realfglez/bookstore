@@ -36,18 +36,18 @@ public class VerifyUserController {
      * @return the verify-success view on success, or the verify-user view on failure
      */
     @RequestMapping(value = "/verifyUser", method = RequestMethod.POST)
-    public String verifyUser(@RequestParam("verificationCode") String verificationCode, Model model){
+    public String verifyUser(@ModelAttribute("verifyUser") User verifyUser,
+                             @RequestParam("verificationCode") String verificationCode, Model model){
 
-        User user = userService.getUserByVerificationCode(verificationCode);
-        String view = "verify-user";
+        String view = "verify-success";
 
-        if (user == null) {
+        if (!verifyUser.getVerificationCode().equals(verificationCode)) {
             model.addAttribute("verifyError", "Code doesn't match");
+            view = "verify-user";
         }
         else {
-            user.setActive(true);
-            userService.save(user);
-            view = "verify-success";
+            verifyUser.setActive(true);
+            userService.save(verifyUser);
         }
         return view;
     }

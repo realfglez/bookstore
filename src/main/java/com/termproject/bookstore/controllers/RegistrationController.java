@@ -50,23 +50,84 @@ public class RegistrationController {
     @RequestMapping(value = "/registerNewUser", method = RequestMethod.POST)
     public String registerNewUser(@ModelAttribute("userForm") User userForm, Model model) {
 
-        User user = userForm;
-        if (userService.getUserByEmail(user.getEmail()) != null) {
+        String view = "verify-user";
+        User user = new User();
+        boolean formErrors = false;
+
+        if (userService.getUserByEmail(userForm.getEmail()) != null) {
             model.addAttribute("userExists", "That email is already linked to an account");
+            formErrors = true;
+            view = "registration";
         }
+
+        if (userService.getUserByUsername(userForm.getUsername()) != null) {
+            model.addAttribute("userExists", "That username is taken");
+            formErrors = true;
+            view = "registration";
+        }
+
         if (!(userForm.getConfirmPassword().equals(user.getPassword()))) {
             model.addAttribute("passwordMismatch", "The passwords do not match");
+            formErrors = true;
+            view = "registration";
         }
-        if ((userService.getUserByEmail(user.getEmail()) == null)
-                && (user.getConfirmPassword().equals(user.getPassword()))){
 
+        if (!userForm.getAddress().getStreet().isBlank()) {
+            user.getAddress().setStreet(userForm.getAddress().getStreet());
+        }
+
+        if (!userForm.getAddress().getCity().isBlank()) {
+            user.getAddress().setCity(userForm.getAddress().getCity());
+        }
+
+        if (!userForm.getAddress().getState().isBlank()) {
+            user.getAddress().setState(userForm.getAddress().getState());
+        }
+
+        if (!userForm.getAddress().getZip().isBlank()) {
+            user.getAddress().setZip(userForm.getAddress().getZip());
+        }
+
+        if (!userForm.getCard().getCardNumber().isBlank()) {
+            user.getCard().setCardNumber(userForm.getCard().getCardNumber());
+        }
+
+        if (!userForm.getCard().getExpirationDate().isBlank()) {
+            String month = userForm.getCard().getExpirationDate().substring(0, 2);
+            String year = userForm.getCard().getExpirationDate().substring(3);
+            if (month.matches("12")) {
+                if (year.matches("20[2-9][0-9]")) {
+                    user.getCard().setExpirationDate(userForm.getCard().getExpirationDate());
+                }
+            } else if (month.matches("(0[1-9])|(1[1-2])")) {
+                if (year.matches("20[2-9][1-9]")) {
+                    user.getCard().setExpirationDate(userForm.getCard().getExpirationDate());
+                }
+            }
+            else {
+                model.addAttribute("dateError", "Invalid expiration date");
+                formErrors = true;
+                view = "registration";
+            }
+        }
+
+        if (!userForm.getCard().getSecurityCode().isBlank()) {
+            if ((userForm.getCard().getSecurityCode().length() == 3) ||
+                    (userForm.getCard().getSecurityCode().length() == 4)) {
+                user.getCard().setSecurityCode(userForm.getCard().getSecurityCode());
+            }
+            model.addAttribute("codeError", "Invalid security code format");
+            formErrors = true;
+            view = "registration";
+        }
+        if (!formErrors){
             user.setPassword(hasher().hashPassword(userForm.getPassword()));
             user.setRole(Role.valueOf("USER"));
             userService.save(user);
+            model.addAttribute("verifyUser", user);
             sendVerification(user);
-            return "verify-user";
         }
-        return "registration";
+        return view;
     }
 
     /**
@@ -86,7 +147,7 @@ public class RegistrationController {
 
         message.setFrom("bigbrainbookstore.com");
         message.setTo(userForm.getEmail());
-        message.setSubject("Confirm Your Account");
+        message.setSubject("Verify Your Account");
         message.setText(text);
         emailSender.send(message);
     }
