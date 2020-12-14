@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Add Promotion</title>
+    <title>Add Employee</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -13,21 +13,46 @@
 <!-- create navbar header -->
 
 <!-- formatting for form -->
-<form th:action="@{/addPromotion}" method="post">
+<form th:action="@{/addEmployee}" method="post" th:object="${userForm}">
     <div>
-        <label>Promo-code</label>:
-        <input type="text" name="promoCode" required placeholder="e.g. SAVE10">
-    </div>
-    <div>
-        <label>Percentage</label>:
-        <input type="text"  name="percentage" required>
-    </div>
-    <div>
-        <label>End date</label>:
-        <input type="text"  name="expirationDate" required placeholder="YYYY-MM-DD">
-    </div>
-    <div>
-        <button type="submit">Add Promotion</button>
+        <h4>Credentials</h4>
+        <div>
+            <label>First name</label>:
+            <input type="text" th:field="*{firstName}" required/>
+        </div>
+
+        <div>
+            <label>Last name</label>:
+            <input type="text" th:field="*{lastName}" required/>
+        </div>
+
+        <div>
+            <label>Email address</label>:
+            <input type="email" th:field="*{email}" required/>
+            <p th:text = "${userError}"></p>
+        </div>
+
+        <div>
+            <label>Username</label>:
+            <input type="text" th:field="*{username}" required/>
+            <p th:text = "${userError}"></p>
+        </div>
+
+        <div>
+            <label>Phone number</label>:
+            <input type="text" th:field="*{phoneNumber}" required/>
+        </div>
+
+        <div>
+            <label>Password</label>:
+            <input type="password" th:field="*{password}" required/>
+        </div>
+
+        <div>
+            <label>Confirm password</label>:
+            <input type="password" th:field="*{confirmPassword}" required/>
+            <p th:text = "${passwordMismatch}"></p>
+        </div>
     </div>
 </form>
 <div class="container">

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!-- create nav bar -->
+
+<!-- format login form -->
+<h1>Profile</h1>
+
+<div>
+    <h4>Credentials</h4>
+    <div>
+        <label>First name</label>:
+        <input type="text" th:field="${user.firstName}"/>
+    </div>
+
+    <div>
+        <label>Last name</label>:
+        <input type="text" th:field="${user.lastName}"/>
+    </div>
+
+    <div>
+        <label>Email address</label>:
+        <input type="email" th:field="${user.email}"/>
+        <p th:text = "${emailError}"></p>
+    </div>
+
+    <div>
+        <label>Username</label>:
+        <input type="text" th:field="${user.username}"/>
+        <p th:text = "${usernameError}"></p>
+    </div>
+
+    <div>
+        <label>Phone number</label>:
+        <input type="text" th:field="${user.phoneNumber}"/>
+    </div>
+</div>
+
+<div>
+    <h4>Credit/Debit Card</h4>
+    <div>
+        <label>Card number</label>:
+        <input type="text" th:field="${user.card.cardNumber}"/>
+    </div>
+
+    <div>
+        <label>Expiration date</label>:
+        <input type="text" th:field="${user.card.expirationDate}" placeholder="mm/yyyy"/>
+    </div>
+
+    <div>
+        <label>Security code</label>:
+        <input type="text" th:field="${user.card.securityCode}"/>
+    </div>
+</div>
+
+<div>
+    <h4>Shipping Address</h4>
+    <div>
+        <label>Street</label>:
+        <input type="text" th:field="${user.address.street}"/>
+    </div>
+
+    <div>
+        <label>City</label>:
+        <input type="text" th:field="${user.address.city}"/>
+    </div>
+
+    <div>
+        <label>State</label>:
+        <input type="text" th:field="${user.address.state}"/>
+    </div>
+
+    <div>
+        <label>Zip code</label>:
+        <input type="text" th:field="${user.address.zip}"/>
+    </div>
+</div>
+
+<div>
+    <a th:href="@{/reset-password}">Forgot password?</a>
+</div>
+<div class="container">
+    <div class="well well-danger">
+        <p>About</p>
+        <p>Contact Support</p>
+        <p>Help</p>
+        <p>Terms and Conditions</p>
+        <p>Privacy Policy</p>
+    </div>
+</div>
+</body>
+</html>

@@ -5,7 +5,6 @@ import com.termproject.bookstore.models.User;
 import com.termproject.bookstore.service.UserService;
 import com.termproject.bookstore.utility.Hasher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
-import java.util.Random;
 
 @Controller
 public class UserController {
@@ -44,7 +42,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = {"/showAddEmployeeForm", "/add-employee"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/add-employee", method = RequestMethod.GET)
     public String showAddEmployeeForm(Model model, HttpSession session){
 
         String view = "/access-denied";
@@ -59,49 +57,32 @@ public class UserController {
 
     @RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
     public String addEmployee(@ModelAttribute("newUser") User newUser, Model model) {
+
         String view = "manage-users";
+        boolean formErrors = false;
 
         User userForm = newUser;
+
         if((userService.getUserByEmail(newUser.getEmail()) != null) ||
                 (userService.getUserByEmail(newUser.getUsername()) != null)) {
             model.addAttribute("userError", "That user already exists");
+            formErrors = true;
+            view = "add-employee";
         }
 
         if (!(newUser.getConfirmPassword().equals(newUser.getPassword()))) {
             model.addAttribute("passwordMismatch", "The passwords do not match");
+            formErrors = true;
+            view = "add-employee";
         }
-        if ((userService.getUserByEmail(newUser.getEmail()) == null) &&
-                (userService.getUserByUsername(newUser.getUsername()) == null) &&
-                (newUser.getConfirmPassword().equals(newUser.getPassword()))){
+
+        if (!formErrors){
             userForm.setPassword(hasher().hashPassword(newUser.getPassword()));
             userForm.setRole(Role.valueOf("EMPLOYEE"));
+            userForm.setActive(true);
             userService.save(userForm);
-            sendEmployeeVerification(userForm);
             model.addAttribute("verifyUser", userForm);
-            return "verify-user";
         }
         return view;
-    }
-
-    /**
-     * <p>Sends the verification code to the employee</p>
-     * @param employee the employee to email
-     */
-    private void sendEmployeeVerification(User employee) {
-
-        Random random = new Random();
-        int randomCode = random.nextInt(9999) + random.nextInt(9999);
-        employee.setVerificationCode(Integer.toString(randomCode));
-        userService.save(employee);
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        String text = "Hello " + employee.getFirstName() + "!\n\n" +
-                "Please use the following code to verify your account: " + employee.getVerificationCode();
-
-        message.setFrom("bigbrainbookstore.com");
-        message.setTo(employee.getEmail());
-        message.setSubject("Verify Your Account");
-        message.setText(text);
-        emailSender.send(message);
     }
 }

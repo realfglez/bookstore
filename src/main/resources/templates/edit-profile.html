@@ -48,17 +48,19 @@
         <h4>Credit/Debit Card</h4>
         <div>
             <label>Card number</label>:
-            <input type="text" th:field="*{card.cardNumber}"/>
+            <input type="text" th:field="*{cardNumber}"/>
         </div>
 
         <div>
             <label>Expiration date</label>:
-            <input type="text" th:field="*{card.expirationDate}" placeholder="mm/yyyy"/>
+            <input type="text" th:field="*{expirationDate}" placeholder="mm/yyyy"/>
+            <p th:text = "${dateError}"></p>
         </div>
 
         <div>
             <label>Security code</label>:
-            <input type="text" th:field="*{card.securityCode}"/>
+            <input type="text" th:field="*{securityCode}"/>
+            <p th:text = "${codError}"></p>
         </div>
     </div>
 
@@ -66,22 +68,22 @@
         <h4>Shipping Address</h4>
         <div>
             <label>Street</label>:
-            <input type="text" th:field="*{address.street}"/>
+            <input type="text" th:field="*{street}"/>
         </div>
 
         <div>
             <label>City</label>:
-            <input type="text" th:field="*{address.city}"/>
+            <input type="text" th:field="*{city}"/>
         </div>
 
         <div>
             <label>State</label>:
-            <input type="text" th:field="*{address.state}"/>
+            <input type="text" th:field="*{state}"/>
         </div>
 
         <div>
             <label>Zip code</label>:
-            <input type="text" th:field="*{address.zip}"/>
+            <input type="text" th:field="*{zip}"/>
         </div>
     </div>
 

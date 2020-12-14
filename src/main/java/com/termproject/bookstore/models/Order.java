@@ -28,15 +28,11 @@ public class Order {
 
     private double price;
 
-    private Address shippingAddress;
-
     private String confirmationCode;
 
-    private Card card;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderItem> items;
 }

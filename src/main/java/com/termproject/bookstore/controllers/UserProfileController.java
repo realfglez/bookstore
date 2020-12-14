@@ -3,13 +3,14 @@ package com.termproject.bookstore.controllers;
 import com.termproject.bookstore.models.Role;
 import com.termproject.bookstore.models.User;
 import com.termproject.bookstore.service.UserService;
+import com.termproject.bookstore.utility.Hasher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,11 +20,15 @@ public class UserProfileController {
     @Autowired
     UserService userService;
 
+    private Hasher hasher() {
+        return new Hasher();
+    }
+
     @RequestMapping(value = "/edit-profile", method = RequestMethod.GET)
     public String showEditProfile(Model model, HttpSession session) {
 
         String view = "/access-denied";
-        User user = (User)session.getAttribute("loggedInUser");
+        User user = (User) session.getAttribute("loggedInUser");
         if (userService.loggedIn(user, session)) {
             User useForm = new User();
             model.addAttribute("useForm", useForm);
@@ -38,7 +43,7 @@ public class UserProfileController {
         String view = "index";
         User user = new User();
         boolean formErrors = false;
-        User loggedInUser = (User)session.getAttribute("loggedInUser");
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
 
         if (!userForm.getEmail().isBlank()) {
             if (userService.getUserByEmail(userForm.getEmail()) == null) {
@@ -78,48 +83,41 @@ public class UserProfileController {
             user.setSubscribed(false);
         }
 
-        if (!userForm.getAddress().getStreet().isBlank()) {
-            user.getAddress().setStreet(userForm.getAddress().getStreet());
+        if (!userForm.getStreet().isBlank()) {
+            user.setStreet(userForm.getStreet());
         }
 
-        if (!userForm.getAddress().getCity().isBlank()) {
-            user.getAddress().setCity(userForm.getAddress().getCity());
+        if (!userForm.getCity().isBlank()) {
+            user.setCity(userForm.getCity());
         }
 
-        if (!userForm.getAddress().getState().isBlank()) {
-            user.getAddress().setState(userForm.getAddress().getState());
+        if (!userForm.getState().isBlank()) {
+            user.setState(userForm.getState());
         }
 
-        if (!userForm.getAddress().getZip().isBlank()) {
-            user.getAddress().setZip(userForm.getAddress().getZip());
+        if (!userForm.getZip().isBlank()) {
+            user.setZip(userForm.getZip());
         }
 
-        if (!userForm.getCard().getCardNumber().isBlank()) {
-            user.getCard().setCardNumber(userForm.getCard().getCardNumber());
+        if (!userForm.getCardNumber().isBlank()) {
+            user.setCardNumber(hasher().hashCardNumber(userForm.getCardNumber()));
         }
 
-        if (!userForm.getCard().getExpirationDate().isBlank()) {
-            String month = userForm.getCard().getExpirationDate().substring(0, 2);
-            String year = userForm.getCard().getExpirationDate().substring(3);
-            if (month.matches("12")) {
-                if (year.matches("20[2-9][0-9]")) {
-                    user.getCard().setExpirationDate(userForm.getCard().getExpirationDate());
-                }
-            } else if (month.matches("(0[1-9])|(1[1-2])")) {
-                if (year.matches("20[2-9][1-9]")) {
-                    user.getCard().setExpirationDate(userForm.getCard().getExpirationDate());
-                }
-            } else {
+        if (!userForm.getExpirationDate().isBlank()) {
+            if (userForm.getExpirationDate().matches("\\d\\d/\\d\\d\\d\\d")) {
+                user.setExpirationDate(userForm.getExpirationDate());
+            }
+            else {
                 model.addAttribute("dateError", "Invalid expiration date");
                 formErrors = true;
-                view = "edit-profile";
+                view = "registration";
             }
         }
 
-        if (!userForm.getCard().getSecurityCode().isBlank()) {
-            if ((userForm.getCard().getSecurityCode().length() == 3) ||
-                    (userForm.getCard().getSecurityCode().length() == 4)) {
-                user.getCard().setSecurityCode(userForm.getCard().getSecurityCode());
+        if (!userForm.getSecurityCode().isBlank()) {
+            if ((userForm.getSecurityCode().length() == 3) ||
+                    (userForm.getSecurityCode().length() == 4)) {
+                user.setSecurityCode(userForm.getSecurityCode());
             }
             model.addAttribute("codeError", "Invalid security code format");
             formErrors = true;
@@ -139,14 +137,55 @@ public class UserProfileController {
     public String showProfile(HttpSession session, Model model) {
         String view = "access-denied";
 
-        User user = (User)session.getAttribute("loggedInUser");
-        if (userService.loggedIn(user, session)){
+        User user = (User) session.getAttribute("loggedInUser");
+        if (userService.loggedIn(user, session)) {
             model.addAttribute("user", user);
             view = "profile";
         }
         return view;
     }
 
+    @RequestMapping(value = "/edit-password", method = RequestMethod.GET)
+    public String showEditPassword(HttpSession session, Model model) {
+
+        String view = "access-denied";
+
+        User user = (User) session.getAttribute("loggedInUser");
+        if (userService.loggedIn(user, session)) {
+            model.addAttribute("user", user);
+            view = "edit-password";
+        }
+        return view;
+    }
+
+    @RequestMapping(value = "/editPasswordForm", method = RequestMethod.GET)
+    public String editPasswordForm(@ModelAttribute("user") User user,
+                                   @RequestParam("oldPassword") String oldPassword,
+                                   @RequestParam("newPassword") String newPassword,
+                                   @RequestParam("confirmPassword") String confirmPassword,
+                                   HttpSession session, Model model) {
+
+        String view = "profile";
+        boolean formErrors = false;
+
+        if (!hasher().passwordMatches(oldPassword, user.getPassword())){
+            model.addAttribute("passwordError", "Password incorrect");
+            view = "edit-password";
+            formErrors = true;
+        }
+
+        if (!newPassword.equals(confirmPassword)){
+            model.addAttribute("passwordMismatch", "Passwords don't match");
+            view = "edit-password";
+            formErrors = true;
+        }
+
+        if (!formErrors){
+            user.setPassword(hasher().hashPassword(newPassword));
+            userService.save(user);
+        }
+        return view;
+    }
 
 
 

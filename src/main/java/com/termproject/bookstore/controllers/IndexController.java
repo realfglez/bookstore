@@ -20,10 +20,6 @@ public class IndexController {
     public String showIndex(final HttpSession session, Model model){
 
         String view = "index";
-        User loggedInUser = (User)session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            view = "login";
-        }
         return view;
     }
 

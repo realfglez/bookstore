@@ -51,11 +51,19 @@ public class User implements Serializable {
 
     private String sessionCode;
 
-    @Embedded
-    private Address address;
+    private String street;
 
-    @Embedded
-    private Card card;
+    private String city;
+
+    private String state;
+
+    private String zip;
+
+    private String cardNumber;
+
+    private String expirationDate;
+
+    private String securityCode;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Cart cart;

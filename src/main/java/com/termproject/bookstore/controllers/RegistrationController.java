@@ -4,7 +4,6 @@ import com.termproject.bookstore.models.Role;
 import com.termproject.bookstore.models.User;
 import com.termproject.bookstore.service.UserService;
 import com.termproject.bookstore.utility.Hasher;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -66,43 +65,29 @@ public class RegistrationController {
             view = "registration";
         }
 
-        if (!(userForm.getConfirmPassword().equals(user.getPassword()))) {
-            model.addAttribute("passwordMismatch", "The passwords do not match");
-            formErrors = true;
-            view = "registration";
+        if (!userForm.getStreet().isBlank()) {
+            user.setStreet(userForm.getStreet());
         }
 
-        if (!userForm.getAddress().getStreet().isBlank()) {
-            user.getAddress().setStreet(userForm.getAddress().getStreet());
+        if (!userForm.getCity().isBlank()) {
+            user.setCity(userForm.getCity());
         }
 
-        if (!userForm.getAddress().getCity().isBlank()) {
-            user.getAddress().setCity(userForm.getAddress().getCity());
+        if (!userForm.getState().isBlank()) {
+            user.setState(userForm.getState());
         }
 
-        if (!userForm.getAddress().getState().isBlank()) {
-            user.getAddress().setState(userForm.getAddress().getState());
+        if (!userForm.getZip().isBlank()) {
+            user.setZip(userForm.getZip());
         }
 
-        if (!userForm.getAddress().getZip().isBlank()) {
-            user.getAddress().setZip(userForm.getAddress().getZip());
+        if (!userForm.getCardNumber().isBlank()) {
+            user.setCardNumber(hasher().hashCardNumber(userForm.getCardNumber()));
         }
 
-        if (!userForm.getCard().getCardNumber().isBlank()) {
-            user.getCard().setCardNumber(userForm.getCard().getCardNumber());
-        }
-
-        if (!userForm.getCard().getExpirationDate().isBlank()) {
-            String month = userForm.getCard().getExpirationDate().substring(0, 2);
-            String year = userForm.getCard().getExpirationDate().substring(3);
-            if (month.matches("12")) {
-                if (year.matches("20[2-9][0-9]")) {
-                    user.getCard().setExpirationDate(userForm.getCard().getExpirationDate());
-                }
-            } else if (month.matches("(0[1-9])|(1[1-2])")) {
-                if (year.matches("20[2-9][1-9]")) {
-                    user.getCard().setExpirationDate(userForm.getCard().getExpirationDate());
-                }
+        if (!userForm.getExpirationDate().isBlank()) {
+            if (userForm.getExpirationDate().matches("\\d\\d/\\d\\d\\d\\d")) {
+                user.setExpirationDate(userForm.getExpirationDate());
             }
             else {
                 model.addAttribute("dateError", "Invalid expiration date");
@@ -111,14 +96,16 @@ public class RegistrationController {
             }
         }
 
-        if (!userForm.getCard().getSecurityCode().isBlank()) {
-            if ((userForm.getCard().getSecurityCode().length() == 3) ||
-                    (userForm.getCard().getSecurityCode().length() == 4)) {
-                user.getCard().setSecurityCode(userForm.getCard().getSecurityCode());
+        if (!userForm.getSecurityCode().isBlank()) {
+            if ((userForm.getSecurityCode().length() == 3) ||
+                    (userForm.getSecurityCode().length() == 4)) {
+                user.setSecurityCode(userForm.getSecurityCode());
             }
-            model.addAttribute("codeError", "Invalid security code format");
-            formErrors = true;
-            view = "registration";
+            else {
+                model.addAttribute("codeError", "Invalid security code format");
+                formErrors = true;
+                view = "registration";
+            }
         }
         if (!formErrors){
             user.setPassword(hasher().hashPassword(userForm.getPassword()));
