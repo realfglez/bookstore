@@ -35,7 +35,7 @@ public class PromotionController {
     @RequestMapping(value = "/manage-promotions", method = RequestMethod.GET)
     public String showPromotions(Model model, HttpSession session) {
 
-        String view = "redirect:/access-denied";
+        String view = "/access-denied";
         User user = (User)session.getAttribute("loggedInUser");
         if (userService.checkAdmin(user) && user != null) {
             model.addAttribute("promotions", promotionService.getPromotions());

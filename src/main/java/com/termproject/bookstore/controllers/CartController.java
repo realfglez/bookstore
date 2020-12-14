@@ -36,6 +36,9 @@ public class CartController {
             if (user.getCart() == null) {
                 Cart cart = new Cart();
                 user.setCart(cart);
+                userService.save(user);
+                model.addAttribute("cart", user.getCart());
+                view = "cart";
             }
             else {
                 model.addAttribute("cart", user.getCart());
@@ -63,7 +66,7 @@ public class CartController {
         Cart cart = ((User)session.getAttribute("loggedInUser")).getCart();
         BookCopy bookCopy = bookCopyService.getSingleBookCopy(isbn);
         if (!bookCopy.getBook().isArchived()){
-            cartService.addItem(cart, bookCopy);
+            cartService.addItem(cart, bookCopy.getBook());
         }
         return "cart";
     }

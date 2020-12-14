@@ -11,48 +11,62 @@
 <body>
 
 <!-- create navbar header -->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Big Brain Books</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Admin Settings</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>
+        </ul>
+    </div>
+</nav>
 
 <!-- formatting for form -->
+<div class="container">
+    <h1>Add Book</h1>
 <form action="#" th:action="@{/addBook}" th:object="${book}" method="post">
     <label for="coverPicUrl">Cover Pic URL</label>
-    <input type="text" th:field="*{coverPicUrl}" id="coverPicUrl" placeholder="Title">
+    <input class="form-control" type="text" th:field="*{coverPicUrl}" id="coverPicUrl" placeholder="URL">
     <span th:if="${#fields.hasErrors('coverPicUrl')}" th:errors="*{coverPicUrl}"></span>
     <label for="title">Title</label>
-    <input type="text" th:field="*{title}" id="title" placeholder="Title">
+    <input class="form-control" type="text" th:field="*{title}" id="title" placeholder="Title">
     <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
     <label for="isbn">ISBN</label>
-    <input type="text" th:field="*{isbn}" id="isbn" placeholder="ISBN">
+    <input class="form-control" type="text" th:field="*{isbn}" id="isbn" placeholder="ISBN">
     <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span>
     <label for="category">Category</label>
-    <input type="text" th:field="*{category}" id="category" placeholder="Category">
+    <input class="form-control" type="text" th:field="*{category}" id="category" placeholder="Category">
     <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
     <label for="author">Author</label>
-    <input type="text" th:field="*{author}" id="author" placeholder="Author">
+    <input class="form-control" type="text" th:field="*{author}" id="author" placeholder="Author">
     <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
     <label for="edition">Edition</label>
-    <input type="text" th:field="*{edition}" id="edition" placeholder="Edition">
+    <input class="form-control" type="text" th:field="*{edition}" id="edition" placeholder="Edition">
     <span th:if="${#fields.hasErrors('edition')}" th:errors="*{edition}"></span>
     <label for="publisher">Publisher</label>
-    <input type="text" th:field="*{publisher}" id="publisher" placeholder="Publisher">
+    <input class="form-control" type="text" th:field="*{publisher}" id="publisher" placeholder="Publisher">
     <span th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}"></span>
     <label for="publicationYear">Publication Year</label>
-    <input type="text" th:field="*{publicationYear}" id="publicationYear" placeholder="Publication Year">
+    <input class="form-control" type="text" th:field="*{publicationYear}" id="publicationYear" placeholder="Publication Year">
     <span th:if="${#fields.hasErrors('publicationYear')}" th:errors="*{publicationYear}"></span>
     <label for="quantityInStock">Quantity</label>
-    <input type="text" th:field="*{quantityInStock}" id="quantityInStock" placeholder="Quantity In Stock">
+    <input class="form-control" type="text" th:field="*{quantityInStock}" id="quantityInStock" placeholder="Quantity In Stock">
     <span th:if="${#fields.hasErrors('quantityInStock')}" th:errors="*{quantityInStock}"></span>
     <label for="minimumThreshold">Minimum Threshold</label>
-    <input type="text" th:field="*{minimumThreshold}" id="minimumThreshold" placeholder="Minimum Threshold">
+    <input class="form-control" type="text" th:field="*{minimumThreshold}" id="minimumThreshold" placeholder="Minimum Threshold">
     <span th:if="${#fields.hasErrors('minimumThreshold')}" th:errors="*{minimumThreshold}"></span>
     <label for="buyPrice">Buy Price</label>
-    <input type="text" th:field="*{buyPrice}" id="buyPrice" placeholder="Buy Price">
+    <input class="form-control" type="text" th:field="*{buyPrice}" id="buyPrice" placeholder="Buy Price">
     <span th:if="${#fields.hasErrors('buyPrice')}" th:errors="*{buyPrice}"></span>
     <label for="sellPrice">Sell Price</label>
-    <input type="text" th:field="*{sellPrice}" id="sellPrice" placeholder="Sell Price">
+    <input class="form-control" type="text" th:field="*{sellPrice}" id="sellPrice" placeholder="Sell Price">
     <span th:if="${#fields.hasErrors('sellPrice')}" th:errors="*{sellPrice}"></span>
-    <button type="submit">Add Book</button>
+        <button class="btn btn-primary" type="submit">Add Book</button>
 </form>
-<div class="container">
+</div>
+<div class="container" style="margin-top:75px">
     <div class="well well-danger">
         <p>About</p>
         <p>Contact Support</p>

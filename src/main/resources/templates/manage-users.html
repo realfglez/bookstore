@@ -10,6 +10,8 @@
 </head>
 <body>
 <!-- create navbar for admin -->
+<h1 th:if="${user==null}">No users in the system right now.</h1>
+<div th:if="${user!=null}">
 <h2>Users</h2>
 <table>
     <thead>
@@ -45,7 +47,7 @@
     </tr>
     </tbody>
 </table>
-
+</div>
 <div>
     <a th:href="@{/add-employee}">Add a new employee</a>
 </div>

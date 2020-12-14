@@ -7,6 +7,8 @@ import com.termproject.bookstore.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ListIterator;
+
 @Service
 public class BookCopyService {
 
@@ -16,12 +18,27 @@ public class BookCopyService {
     @Autowired
     BookRepository bookRepository;
 
+    public void save(BookCopy bookCopy) {
+        bookCopyRepository.save(bookCopy);
+    }
+
     public BookCopy getBookCopyById(int id) {
         return bookCopyRepository.findById(id);
     }
 
     public BookCopy getSingleBookCopy(String isbn) {
         Book book = bookRepository.findByIsbn(isbn);
-        return book.getBookCopies().get(0);
+
+        BookCopy bookCopy = null;
+        ListIterator<BookCopy> iterator = book.getBookCopies().listIterator();
+        while (iterator.hasNext()) {
+            bookCopy = iterator.next();
+            if (!bookCopy.isReserved()){
+                bookCopy.setReserved(true);
+                bookCopyRepository.save(bookCopy);
+                break;
+            }
+        }
+        return bookCopy;
     }
 }

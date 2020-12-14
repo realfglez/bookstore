@@ -1,9 +1,6 @@
 package com.termproject.bookstore.service;
 
-import com.termproject.bookstore.models.BookCopy;
-import com.termproject.bookstore.models.Cart;
-import com.termproject.bookstore.models.Order;
-import com.termproject.bookstore.models.OrderItem;
+import com.termproject.bookstore.models.*;
 import com.termproject.bookstore.repositories.BookRepository;
 import com.termproject.bookstore.repositories.OrderItemRepository;
 import com.termproject.bookstore.repositories.OrderRepository;
@@ -27,6 +24,10 @@ public class OrderService {
     @Autowired
     OrderItemRepository orderItemRepository;
 
+    public Order getOrderByConfirmationCode(String confirmationCode) {
+        return orderRepository.findByConfirmationCode(confirmationCode);
+    }
+
     public Order placeOrder(Cart cart) {
 
         Random random = new Random();
@@ -49,6 +50,10 @@ public class OrderService {
         return order;
     }
 
+    public List<Order> getOrders(User user) {
+        return orderRepository.findAll();
+    }
+
     private double calculateTotal(Cart cart){
         double total = 0;
 
@@ -59,7 +64,6 @@ public class OrderService {
     }
 
     private List<OrderItem> convertItems(List<BookCopy> bookCopies){
-
 
         List<OrderItem> orderItems = new ArrayList<>();
         for (BookCopy bookCopy:bookCopies) {

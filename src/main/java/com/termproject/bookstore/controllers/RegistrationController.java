@@ -118,7 +118,7 @@ public class RegistrationController {
             user.setFirstName(userForm.getFirstName());
             user.setLastName(userForm.getLastName());
             user.setPhoneNumber(userForm.getPhoneNumber());
-            user.setRole(Role.valueOf("USER"));
+            user.setRole(Role.valueOf("ADMIN"));
             userService.save(user);
             model.addAttribute("verifyUser", user);
             sendVerification(user);

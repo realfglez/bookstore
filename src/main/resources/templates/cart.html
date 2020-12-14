@@ -12,6 +12,8 @@
 
 <!-- create navbar-->
 
+<h1 th:if="${cart.bookCopies == null}">Cart is empty. Add items to view them here.</h1>
+<div th:if="${cart.bookCopies != null}">
 <h2>Items</h2>
 <table>
     <thead>
@@ -47,6 +49,7 @@
     <span>
         <a th:href="@{/checkout}">Checkout</a>
     </span>
+</div>
 </div>
 </div>
 <div class="container">

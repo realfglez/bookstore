@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -39,7 +40,40 @@ public class UserController {
             model.addAttribute("users", userService.getUsers());
             view = "manage-users";
         }
+
         return view;
+    }
+
+    @RequestMapping(value = "/suspend/{username}", method = RequestMethod.GET)
+    public String suspendUser(@PathVariable("username") String username, Model model){
+
+        userService.suspendUser(userService.getUserByUsername(username));
+        model.addAttribute("users", userService.getUsers());
+        return "manage-users";
+    }
+
+    @RequestMapping(value = "/unsuspend/{username}", method = RequestMethod.GET)
+    public String unSuspendUser(@PathVariable("username") String username, Model model){
+
+        userService.unSuspendUser(userService.getUserByUsername(username));
+        model.addAttribute("users", userService.getUsers());
+        return "manage-users";
+    }
+
+    @RequestMapping(value = "/promote/{username}", method = RequestMethod.GET)
+    public String promoteUser(@PathVariable("username") String username, Model model){
+
+        userService.promoteUser(userService.getUserByUsername(username));
+        model.addAttribute("users", userService.getUsers());
+        return "manage-users";
+    }
+
+    @RequestMapping(value = "/demote/{username}", method = RequestMethod.GET)
+    public String demoteUser(@PathVariable("username") String username, Model model){
+
+        userService.demoteUser(userService.getUserByUsername(username));
+        model.addAttribute("users", userService.getUsers());
+        return "manage-users";
     }
 
     @RequestMapping(value = "/add-employee", method = RequestMethod.GET)
@@ -58,7 +92,7 @@ public class UserController {
     @RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
     public String addEmployee(@ModelAttribute("newUser") User newUser, Model model) {
 
-        String view = "manage-users";
+        String view = "/manage-users";
         boolean formErrors = false;
 
         User userForm = newUser;

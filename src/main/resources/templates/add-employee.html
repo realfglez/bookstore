@@ -11,51 +11,68 @@
 <body>
 
 <!-- create navbar header -->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Big Brain Books</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Admin Settings</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>
+        </ul>
+    </div>
+</nav>
 
 <!-- formatting for form -->
-<form th:action="@{/addEmployee}" method="post" th:object="${userForm}">
-    <div>
-        <h4>Credentials</h4>
+
+<form th:action="@{/addEmployee}" method="post" th:object="${newUser}">
+    <div class="container">
+        <h1>Add Employee</h1>
+        <h3>Credentials</h3>
         <div>
             <label>First name</label>:
-            <input type="text" th:field="*{firstName}" required/>
+            <input class="form-control" type="text" th:field="*{firstName}" required/>
         </div>
 
         <div>
             <label>Last name</label>:
-            <input type="text" th:field="*{lastName}" required/>
+            <input class="form-control" type="text" th:field="*{lastName}" required/>
         </div>
 
         <div>
             <label>Email address</label>:
-            <input type="email" th:field="*{email}" required/>
+            <input class="form-control" type="email" th:field="*{email}" required/>
             <p th:text = "${userError}"></p>
         </div>
 
         <div>
             <label>Username</label>:
-            <input type="text" th:field="*{username}" required/>
+            <input class="form-control" type="text" th:field="*{username}" required/>
             <p th:text = "${userError}"></p>
         </div>
 
         <div>
             <label>Phone number</label>:
-            <input type="text" th:field="*{phoneNumber}" required/>
+            <input class="form-control" type="text" th:field="*{phoneNumber}" required/>
         </div>
 
         <div>
             <label>Password</label>:
-            <input type="password" th:field="*{password}" required/>
+            <input class="form-control" type="password" th:field="*{password}" required/>
         </div>
 
         <div>
             <label>Confirm password</label>:
-            <input type="password" th:field="*{confirmPassword}" required/>
+            <input class="form-control" type="password" th:field="*{confirmPassword}" required/>
             <p th:text = "${passwordMismatch}"></p>
         </div>
+
+        <div>
+        <button class="btn btn-primary" type="submit">Add employee</button>
+    </div>
     </div>
 </form>
-<div class="container">
+<div class="container" style="margin-top:75px">
     <div class="well well-danger">
         <p>About</p>
         <p>Contact Support</p>

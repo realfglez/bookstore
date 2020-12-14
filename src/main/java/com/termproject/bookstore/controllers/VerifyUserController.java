@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class VerifyUserController {
 
@@ -36,15 +38,17 @@ public class VerifyUserController {
      * @return the verify-success view on success, or the verify-user view on failure
      */
     @RequestMapping(value = "/verifyUser", method = RequestMethod.POST)
-    public String verifyUser(@ModelAttribute("verifyUser") User verifyUser,
+    public String verifyUser(HttpSession session,
                              @RequestParam("verificationCode") String verificationCode, Model model){
 
         String view = "verify-success";
+        User verifyUser = (User)session.getAttribute("loggedInUser");
 
         if (!verifyUser.getVerificationCode().equals(verificationCode)) {
             model.addAttribute("verifyError", "Code doesn't match");
             view = "verify-user";
         }
+        
         else {
             verifyUser.setActive(true);
             userService.save(verifyUser);

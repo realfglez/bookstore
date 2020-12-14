@@ -35,6 +35,8 @@ public class BookCopy {
 
     private double sellPrice;
 
+    private boolean reserved;
+
     @ManyToOne
     private Cart cart;
 

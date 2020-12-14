@@ -11,28 +11,41 @@
 <body>
 
 <!-- create navbar header -->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Big Brain Books</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Admin Settings</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>
+        </ul>
+    </div>
+</nav>
 
 <!-- formatting for form -->
 <form th:action="@{/addPromotion}" method="post">
-
+    <div class="container">
+        <h1>Add Promo</h1>
     <div>
         <label>Promo-code</label>:
-        <input type="text" name="promoCode" required placeholder="e.g. SAVE10">
+        <input class="form-control" type="text" name="promoCode" required placeholder="e.g. SAVE10">
     </div>
     <div>
         <label>Percentage</label>:
-        <input type="text"  name="percentage" required>
+        <input class="form-control" type="text"  name="percentage" required>
     </div>
     <div>
         <label>End date</label>:
-        <input type="text"  name="expirationDate" required placeholder="yyyy-MM-dd">
+        <input class="form-control" type="text"  name="expirationDate" required placeholder="yyyy-MM-dd">
     </div>
-    <div>
-        <button type="submit">Add Promotion</button>
+    <div style="margin-top:20px">
+        <button class="btn btn-primary" type="submit">Add Promotion</button>
+    </div>
     </div>
 </form>
 
-<div class="container">
+<div class="container" style="margin-top:75px">
     <div class="well well-danger">
         <p>About</p>
         <p>Contact Support</p>

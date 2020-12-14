@@ -185,6 +185,4 @@ public class UserProfileController {
         return view;
     }
 
-
-
 }
