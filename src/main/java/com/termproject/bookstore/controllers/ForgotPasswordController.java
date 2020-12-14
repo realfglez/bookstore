@@ -20,7 +20,8 @@ public class ForgotPasswordController {
     @Autowired
     UserService userService;
 
-    private JavaMailSender emailSender;
+    @Autowired
+    JavaMailSender emailSender;
 
     public ForgotPasswordController(JavaMailSender emailSender) {
         this.emailSender=emailSender;

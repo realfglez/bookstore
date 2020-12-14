@@ -54,15 +54,21 @@ public class RegistrationController {
         boolean formErrors = false;
 
         if (userService.getUserByEmail(userForm.getEmail()) != null) {
-            model.addAttribute("userExists", "That email is already linked to an account");
+            model.addAttribute("emailError", "That email is already linked to an account");
             formErrors = true;
             view = "registration";
         }
+        else {
+            user.setEmail(userForm.getEmail());
+        }
 
         if (userService.getUserByUsername(userForm.getUsername()) != null) {
-            model.addAttribute("userExists", "That username is taken");
+            model.addAttribute("usernameError", "That username is taken");
             formErrors = true;
             view = "registration";
+        }
+        else {
+            user.setUsername(userForm.getUsername());
         }
 
         if (!userForm.getStreet().isBlank()) {
@@ -109,6 +115,9 @@ public class RegistrationController {
         }
         if (!formErrors){
             user.setPassword(hasher().hashPassword(userForm.getPassword()));
+            user.setFirstName(userForm.getFirstName());
+            user.setLastName(userForm.getLastName());
+            user.setPhoneNumber(userForm.getPhoneNumber());
             user.setRole(Role.valueOf("USER"));
             userService.save(user);
             model.addAttribute("verifyUser", user);

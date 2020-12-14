@@ -1,25 +1,17 @@
 package com.termproject.bookstore.models;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-
-/**
- * Book table
- */
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Book {
+public class BookCopy {
 
-    /**
-     * Columns for Book table
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -42,20 +34,13 @@ public class Book {
 
     private int publicationYear;
 
-    private int quantityInStock;
-
-    private int minimumThreshold;
-
     private double buyPrice;
 
     private double sellPrice;
 
-    private boolean archived;
+    @ManyToOne
+    private Cart cart;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
-    private List<BookCopy> bookCopies;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
-    private List<OrderItem> orderItems;
+    @ManyToOne
+    private Book book;
 }
-

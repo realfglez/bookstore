@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Add Promotion</title>
+    <title>Edit Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -13,7 +13,7 @@
 <!-- create navbar header -->
 
 <!-- formatting for form -->
-<form th:action="@{/editProfile}" th:object = "${useForm}" method="post">
+<form th:action="@{/editProfileForm}" th:object = "${useForm}" method="post">
     <div>
         <h4>Credentials</h4>
         <div>
@@ -93,6 +93,10 @@
             <option th:value="1" >yes</option>
             <option th:value="0" >no</option>
         </select>
+    </div>
+
+    <div>
+        <button type="submit">Submit</button>
     </div>
 </form>
 

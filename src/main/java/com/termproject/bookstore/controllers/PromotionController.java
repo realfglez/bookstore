@@ -21,9 +21,12 @@ public class PromotionController {
 
     @Autowired
     PromotionService promotionService;
+
+    @Autowired
     UserService userService;
 
-    private JavaMailSender emailSender;
+    @Autowired
+    JavaMailSender emailSender;
 
     public PromotionController(JavaMailSender emailSender) {
         this.emailSender=emailSender;

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!-- create navbar-->
+
+<h2>Items</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>ISBN</th>
+        <th>Category</th>
+        <th>Author</th>
+        <th>Edition</th>
+        <th>Publisher</th>
+        <th>Publication Year</th>
+        <th>Sell Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bookCopy : ${cart.bookCopies}">
+        <td><img th:src="${bookCopy.coverPicUrl}" alt="${bookCopy.coverPicUrl}" width="120"/></td>
+        <td th:text="${bookCopy.title}"></td>
+        <td th:text="${bookCopy.isbn}"></td>
+        <td th:text="${bookCopy.category}"></td>
+        <td th:text="${bookCopy.author}"></td>
+        <td th:text="${bookCopy.edition}"></td>
+        <td th:text="${bookCopy.publisher}"></td>
+        <td th:text="${bookCopy.publicationYear}"></td>
+        <td th:text="'$'+${bookCopy.sellPrice}"></td>
+        <td><a th:href="@{/remove/{isbn}(isbn=${bookCopy.isbn})}">Remove</a></td>
+        <td><a th:href="@{/add/{isbn}(isbn=${bookCopy.isbn})}">Increment</a></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+<div class="container">
+    <div class="well well-danger">
+        <p>About</p>
+        <p>Contact Support</p>
+        <p>Help</p>
+        <p>Terms and Conditions</p>
+        <p>Privacy Policy</p>
+    </div>
+</div>
+</body>
+</html>

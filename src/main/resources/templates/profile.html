@@ -19,47 +19,29 @@
     <h4>Credentials</h4>
     <div>
         <label>First name</label>:
-        <input type="text" th:field="${user.firstName}"/>
+        <span th:text="${user.firstName}"></span>
     </div>
 
     <div>
         <label>Last name</label>:
-        <input type="text" th:field="${user.lastName}"/>
+        <span th:text="${user.lastName}"></span>
     </div>
 
     <div>
         <label>Email address</label>:
-        <input type="email" th:field="${user.email}"/>
+        <span th:text="${user.email}"></span>
         <p th:text = "${emailError}"></p>
     </div>
 
     <div>
         <label>Username</label>:
-        <input type="text" th:field="${user.username}"/>
+        <span th:text="${user.username}"></span>
         <p th:text = "${usernameError}"></p>
     </div>
 
     <div>
         <label>Phone number</label>:
-        <input type="text" th:field="${user.phoneNumber}"/>
-    </div>
-</div>
-
-<div>
-    <h4>Credit/Debit Card</h4>
-    <div>
-        <label>Card number</label>:
-        <input type="text" th:field="${user.card.cardNumber}"/>
-    </div>
-
-    <div>
-        <label>Expiration date</label>:
-        <input type="text" th:field="${user.card.expirationDate}" placeholder="mm/yyyy"/>
-    </div>
-
-    <div>
-        <label>Security code</label>:
-        <input type="text" th:field="${user.card.securityCode}"/>
+        <span th:text="${user.phoneNumber}"></span>
     </div>
 </div>
 
@@ -67,22 +49,22 @@
     <h4>Shipping Address</h4>
     <div>
         <label>Street</label>:
-        <input type="text" th:field="${user.address.street}"/>
+        <span th:text="${user.street}"></span>
     </div>
 
     <div>
         <label>City</label>:
-        <input type="text" th:field="${user.address.city}"/>
+        <span th:text="${user.city}"></span>
     </div>
 
     <div>
         <label>State</label>:
-        <input type="text" th:field="${user.address.state}"/>
+        <span th:text="${user.state}"></span>
     </div>
 
     <div>
         <label>Zip code</label>:
-        <input type="text" th:field="${user.address.zip}"/>
+        <span th:text="${user.zip}"></span>
     </div>
 </div>
 

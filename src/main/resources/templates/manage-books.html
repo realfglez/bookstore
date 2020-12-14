@@ -44,8 +44,8 @@
         <td th:text="'$'+${book.buyPrice}"></td>
         <td th:text="'$'+${book.sellPrice}"></td>
         <td th:text="${book.archived}"></td>
-        <td><a th:href="@{/archive/{isbn}(id=${book.isbn})}">Archive</a></td>
-        <td><a th:href="@{/unarchive/{isbn}(id=${book.isbn})}">Unarchive</a></td>
+        <td><a th:href="@{/archive/{isbn}(isbn=${book.isbn})}">Archive</a></td>
+        <td><a th:href="@{/unarchive/{isbn}(isbn=${book.isbn})}">Unarchive</a></td>
     </tr>
     </tbody>
 </table>

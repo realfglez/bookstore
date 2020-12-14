@@ -38,12 +38,11 @@ public class UserProfileController {
     }
 
     @RequestMapping(value = "/editProfileForm", method = RequestMethod.POST)
-    public String editProfilForm(@ModelAttribute("userForm") User userForm, Model model, HttpSession session) {
+    public String editProfileForm(@ModelAttribute("userForm") User userForm, Model model, HttpSession session) {
 
-        String view = "index";
+        String view = "profile";
         User user = new User();
         boolean formErrors = false;
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
 
         if (!userForm.getEmail().isBlank()) {
             if (userService.getUserByEmail(userForm.getEmail()) == null) {
@@ -110,7 +109,7 @@ public class UserProfileController {
             else {
                 model.addAttribute("dateError", "Invalid expiration date");
                 formErrors = true;
-                view = "registration";
+                view = "edit-profile";
             }
         }
 
@@ -128,7 +127,6 @@ public class UserProfileController {
             user.setRole(Role.valueOf("USER"));
             userService.save(user);
         }
-
 
         return view;
     }
@@ -158,12 +156,12 @@ public class UserProfileController {
         return view;
     }
 
-    @RequestMapping(value = "/editPasswordForm", method = RequestMethod.GET)
+    @RequestMapping(value = "/editPasswordForm", method = RequestMethod.POST)
     public String editPasswordForm(@ModelAttribute("user") User user,
                                    @RequestParam("oldPassword") String oldPassword,
                                    @RequestParam("newPassword") String newPassword,
                                    @RequestParam("confirmPassword") String confirmPassword,
-                                   HttpSession session, Model model) {
+                                   Model model) {
 
         String view = "profile";
         boolean formErrors = false;
