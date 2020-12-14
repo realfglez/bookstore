@@ -44,14 +44,12 @@ public class BookService {
 
     public void archiveBook(Book book) {
         Book archivedBook = bookRepository.findByIsbn(book.getIsbn());
-
         archivedBook.setArchived(true);
         bookRepository.save(archivedBook);
     }
 
     public void unArchiveBook(Book book){
         Book unArchivedBook = bookRepository.findByIsbn(book.getIsbn());
-
         unArchivedBook.setArchived(false);
         bookRepository.save(unArchivedBook);
     }
@@ -64,7 +62,6 @@ public class BookService {
             bookCopy.setAuthor(book.getAuthor());
             bookCopy.setCategory(book.getCategory());
             bookCopy.setCoverPicUrl(book.getCoverPicUrl());
-            bookCopy.setBuyPrice(book.getBuyPrice());
             bookCopy.setSellPrice(book.getSellPrice());
             bookCopy.setEdition(book.getEdition());
             bookCopy.setPublicationYear(book.getPublicationYear());

@@ -61,10 +61,9 @@ public class CartController {
                              Model model) {
 
         Cart cart = ((User)session.getAttribute("loggedInUser")).getCart();
-        BookCopy bookCopy = bookCopyService.getBookCopyByIsbn(isbn);
-        if (cart.getBookCopies().contains(bookCopy) &&
-        !bookCopy.getBook().isArchived()){
-            cartService.addItem(cart, isbn);
+        BookCopy bookCopy = bookCopyService.getSingleBookCopy(isbn);
+        if (!bookCopy.getBook().isArchived()){
+            cartService.addItem(cart, bookCopy);
         }
         return "cart";
     }

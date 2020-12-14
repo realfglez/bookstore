@@ -16,11 +16,16 @@ public class CartService {
     @Autowired
     BookCopyRepository bookCopyRepository;
 
-    public void removeItem(Cart cart, String isbn){
-        cart.getBookCopies().removeIf(bookCopy -> bookCopy.getIsbn().equals(isbn));
+    public void removeItem(Cart cart, String  isbn){
+        for (BookCopy bookCopy:cart.getBookCopies()) {
+            if(bookCopy.getIsbn().equals(isbn)) {
+                cart.getBookCopies().remove(bookCopy);
+            }
+            break;
+        }
     }
 
-    public void addItem(Cart cart, String isbn){
-        cart.getBookCopies().add(bookCopyRepository.findByIsbn(isbn));
+    public void addItem(Cart cart, BookCopy bookCopy){
+        cart.getBookCopies().add(bookCopy);
     }
 }

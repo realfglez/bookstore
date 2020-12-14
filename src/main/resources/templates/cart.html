@@ -39,10 +39,15 @@
         <td th:text="${bookCopy.publicationYear}"></td>
         <td th:text="'$'+${bookCopy.sellPrice}"></td>
         <td><a th:href="@{/remove/{isbn}(isbn=${bookCopy.isbn})}">Remove</a></td>
-        <td><a th:href="@{/add/{isbn}(isbn=${bookCopy.isbn})}">Increment</a></td>
+        <td><a th:href="@{/add/{isbn}(isbn=${bookCopy.isbn})}">Add another copy</a></td>
     </tr>
     </tbody>
 </table>
+<div>
+    <span>
+        <a th:href="@{/checkout}">Checkout</a>
+    </span>
+</div>
 </div>
 <div class="container">
     <div class="well well-danger">

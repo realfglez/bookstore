@@ -16,7 +16,6 @@ public class BookCopy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(unique = true)
     private String isbn;
 
     private String title;
@@ -33,8 +32,6 @@ public class BookCopy {
     private String publisher;
 
     private int publicationYear;
-
-    private double buyPrice;
 
     private double sellPrice;
 

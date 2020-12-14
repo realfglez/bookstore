@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<form th:action="@{/checkoutForm}" th:object = "${checkoutForm}" method="post">
+
+<!-- create navbar -->
+
+<!--format form-->
+<h1>Review your order</h1>
+    <h2>Items</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Cover</th>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Category</th>
+            <th>Author</th>
+            <th>Edition</th>
+            <th>Publisher</th>
+            <th>Publication Year</th>
+            <th>Sell Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bookCopy : ${checkoutForm.cart.bookCopies}">
+            <td><img th:src="${bookCopy.coverPicUrl}" alt="${bookCopy.coverPicUrl}" width="120"/></td>
+            <td th:text="${bookCopy.title}"></td>
+            <td th:text="${bookCopy.isbn}"></td>
+            <td th:text="${bookCopy.category}"></td>
+            <td th:text="${bookCopy.author}"></td>
+            <td th:text="${bookCopy.edition}"></td>
+            <td th:text="${bookCopy.publisher}"></td>
+            <td th:text="${bookCopy.publicationYear}"></td>
+            <td th:text="'$'+${bookCopy.sellPrice}"></td>
+            <td><a th:href="@{/remove/{isbn}(isbn=${bookCopy.isbn})}">Remove</a></td>
+            <td><a th:href="@{/add/{isbn}(isbn=${bookCopy.isbn})}">Add another copy</a></td>
+        </tr>
+        </tbody>
+    </table>
+<div th:if="${noCard}">
+    <h4>Credit/Debit Card</h4>
+    <div>
+        <label>Card number</label>:
+        <input type="text" th:field="*{cardNumber}"/>
+    </div>
+
+    <div>
+        <label>Expiration date</label>:
+        <input type="text" th:field="*{expirationDate}" placeholder="mm/yyyy"/>
+        <p th:text = "${dateError}"></p>
+    </div>
+
+    <div>
+        <label>Security code</label>:
+        <input type="text" th:field="*{securityCode}"/>
+        <p th:text = "${codeError}"></p>
+    </div>
+</div>
+
+<div th:if="${noAddress}">
+    <h4>Shipping Address</h4>
+    <div>
+        <label>Street</label>:
+        <input type="text" th:field="*{street}"/>
+    </div>
+
+    <div>
+        <label>City</label>:
+        <input type="text" th:field="*{city}"/>
+    </div>
+
+    <div>
+        <label>State</label>:
+        <input type="text" th:field="*{state}"/>
+    </div>
+
+    <div>
+        <label>Zip code</label>:
+        <input type="text" th:field="*{zip}"/>
+    </div>
+</div>
+
+<div>
+    <button type="submit">Place order</button>
+</div>
+</form>
+
+<div class="container">
+    <div class="well well-danger">
+        <p>About</p>
+        <p>Contact Support</p>
+        <p>Help</p>
+        <p>Terms and Conditions</p>
+        <p>Privacy Policy</p>
+    </div>
+</div>
+</body>
+</html>

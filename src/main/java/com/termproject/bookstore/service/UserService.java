@@ -138,4 +138,29 @@ public class UserService {
 
         return loggedIn;
     }
+
+    public boolean hasCard(User user){
+        boolean hasCard = false;
+
+        if(user.getCardNumber()!=null &&
+                user.getExpirationDate()!=null &&
+                user.getSecurityCode()!=null) {
+            hasCard = true;
+        }
+
+        return hasCard;
+    }
+
+    public boolean hasAddress(User user){
+        boolean hasAddress = false;
+
+        if(user.getStreet()!=null &&
+                user.getState()!=null &&
+                user.getCity()!=null &&
+                user.getZip()!=null) {
+            hasAddress = true;
+        }
+
+        return hasAddress;
+    }
 }
